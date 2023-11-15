@@ -1,0 +1,28 @@
+<!-- Display user's rental history -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class="history_body">
+            <main>
+                {% extends "base.html" %}
+                <div class="history_box">
+                    {% block content %}
+                    <h1>Car Rental History</h1>
+                    <div class="history_list">
+                        {% for entry in history %}
+                        <div class="history_card">
+                            <strong>Name:</strong> {{ entry['name'] }}<br>
+                            <strong>Email:</strong> {{ entry['email'] }}<br>
+                            <strong>Car:</strong> {{ entry['make'] }} {{ entry['model']}} ({{entry['year'] }})<br>
+                            <strong>Price:</strong> ${{ entry['price'] }}<br>
+                            <strong>Availability:</strong> {{ entry['start_date'] }} - {{ entry['end_date'] }}<br>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endblock %}
+                </div>
+            </main>
+        </div>
+
+    </body>
+</html>

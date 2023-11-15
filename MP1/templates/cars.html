@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class="car_body">
+            <main>
+                {% extends "base.html" %}
+                {% block content %}
+                <h2>Available Cars:</h2>
+                <div class="car_box">
+                    <div class="car_list">
+                        {% for car in cars %}
+                        <div class="car_card">
+                            <div class="car_img">
+                                <img
+                                    src="{{ url_for('static', filename='images/' + car['image']) }}"
+                                    alt="{{ car['make'] }} {{ car['model'] }}"
+                                    class="car_image">
+                            </div>
+                            <div class="car_data">
+
+                                <p style="color:#fff">{{ car.make }}
+                                    {{ car.model }}
+                                    ({{ car.year }}) <br>
+                                    Price: ${{ car.price }}/day</p>
+                                <div class="availability">
+                                    {% if car.availability %}
+                                    <p style="color:#ff0000">Unavailable</p>
+                                    {% for reservation in car.availability
+                                    %}
+                                    <!-- <p>{{ reservation.start_date }} to {{
+                                            reservation.end_date }}</p> -->
+                                    {% endfor %}
+                                    {% else %}
+                                    <p style="color:#00ff00;">Available</p>
+                                    {% endif %}
+                                </div>
+
+                                <div class="car_form">
+
+                                    <form method="post"
+                                        action="{{ url_for('reserve', car_id=car['id']) }}">
+                                        <div class="car_input">
+                                            <input type="text" name="name"
+                                                id="name"
+                                                placeholder="Name" required>
+                                        </div>
+                                        <div class="car_input">
+                                            <input type="email" name="email"
+                                                id="email" placeholder="Email"
+                                                required>
+                                        </div>
+                                        <div class="car_input">
+                                            <label for="date">Start Date:</label>
+                                            <input type="date" name="start_date"
+                                                id="start_date"
+                                                required>
+                                        </div>
+                                        <div class="car_input">
+                                            <label for="date">End Date  :</label>
+                                            <input type="date" name="end_date"
+                                                id="end_date">
+                                        </div>
+                                        <button class="reserve" type="submit">Reserve</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endblock %}
+            </main>
+        </div>
+    </body>
+</html>
